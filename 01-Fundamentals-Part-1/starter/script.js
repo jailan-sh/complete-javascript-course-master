@@ -71,9 +71,6 @@ if (DolphinsAverage > KoalasAverage && DolphinsAverage >=100) {
 } else { console.log(`no one win`)
 }
 
-
-
-
 ////////////////////////////////////
 // Coding Challenge #4
 
@@ -90,3 +87,7 @@ HINT: Value X is between 50 and 300, if it's >= 50 && <= 300 😉
 
 GOOD LUCK 😀
 */
+const bill = 40;
+const tip = (bill >= 50 && bill <= 300) ? bill *15 : bill * .2;
+console.log(`the bill ${bill} , the tip ${tip}, and the final value ${bill+ tip}`);
+
