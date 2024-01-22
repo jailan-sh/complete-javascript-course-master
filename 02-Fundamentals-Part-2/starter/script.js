@@ -66,8 +66,8 @@ console.log(bills);
  const tips = [calcTip(bills[0]), calcTip(bills[1]), calcTip(bills[2])];
  console.log(tips);
 
-  const total = bills
-  total.push(tips[0], tips[1],tips[2]);
+  const total = bills.concat(tips);
+//   total.push(tips[0], tips[1],tips[2]);
   console.log(total);
   ///////////////////////////////////////
 // Coding Challenge #3
