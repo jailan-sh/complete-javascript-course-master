@@ -21,22 +21,22 @@ HINT: To check if number A is at least double number B, check for A >= 2 * B. Ap
 
 GOOD LUCK 😀
 */
-const calcAverage = (score1, score2, score3) => (score1 + score2 + score3) /3;
-const averageDOlphins = calcAverage(44, 23, 71);
-const averageKoalas = calcAverage(65, 54, 49);
-console.log(averageDOlphins, averageKoalas);
-function checkWinner(avgDolhins, avgKoalas) {
-    if (avgDolhins >= 2 * avgKoalas) {
-        return `"Dolphins win (${avgDolhins} vs. ${avgKoalas})"`;
-    } else if (avgKoalas >= 2 * avgDolhins)
-    {
-        return `"Koalas win (${avgKoalas} vs. ${avgDolhins})"`;
-    } else {
-        return `no one win`;
-    }
-}
-const result = checkWinner(averageDOlphins, averageKoalas);
-console.log(result);
+// const calcAverage = (score1, score2, score3) => (score1 + score2 + score3) /3;
+// const averageDOlphins = calcAverage(44, 23, 71);
+// const averageKoalas = calcAverage(65, 54, 49);
+// console.log(averageDOlphins, averageKoalas);
+// function checkWinner(avgDolhins, avgKoalas) {
+//     if (avgDolhins >= 2 * avgKoalas) {
+//         return `"Dolphins win (${avgDolhins} vs. ${avgKoalas})"`;
+//     } else if (avgKoalas >= 2 * avgDolhins)
+//     {
+//         return `"Koalas win (${avgKoalas} vs. ${avgDolhins})"`;
+//     } else {
+//         return `no one win`;
+//     }
+// }
+// const result = checkWinner(averageDOlphins, averageKoalas);
+// console.log(result);
 
 ///////////////////////////////////////
 // Coding Challenge #2
@@ -135,3 +135,28 @@ HINT: Call calcTip in the loop and use the push method to add values to the tips
 
 GOOD LUCK 😀
 */
+
+const bills2 = [22, 295, 176, 440, 37, 105, 10, 1100, 86, 52];
+const tips2 = [];
+const totals = [];
+
+// const calcTip = bill => (bill >= 50 && bill <= 300) ? bill * .15 : bill *.2;
+
+for (let i = 0; i < 10; i++) {
+    tips2.push(calcTip(bills2[i]));
+    // totals[i] = bills[i] + tips[i];
+    totals.push(bills2[i] + tips2[i]);
+}
+
+console.log(tips, totals);
+
+function calcAverage(arr) {
+   let result = 0
+    for (let i = 0; i < arr.length; i++) {
+        result += arr[i];
+    }
+    result = result / arr.length;
+    return result;
+}
+
+console.log(calcAverage(totals));
