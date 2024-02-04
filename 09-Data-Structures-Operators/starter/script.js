@@ -26,4 +26,82 @@ const restaurant = {
       close: 24,
     },
   },
+  orderDeliver: function ({ time = '23', sindex, eindex, address = 'cairo' }) {
+    console.log(time, sindex, eindex, address);
+  },
+  pizza: function (ing1, ing2, ing3) {
+    console.log(`the pizza ingredients ${ing1}, ${ing2} and ${ing3}`);
+  },
 };
+
+// restaurant.orderDeliver({
+//   time: '20:00',
+//   sindex: 1,
+//   eindex: 2,
+//   address: 'damietta',
+// });
+
+// restaurant.orderDeliver({ sindex: 1, eindex: 2 });
+
+// const nMenie = [...restaurant.mainMenu, 'shusi'];
+// console.log(nMenie);
+
+// const menu = [...nMenie, ...restaurant.mainMenu];
+// console.log(menu);
+
+// const ingredients = ['banna', 'pinaple', 'shrams'];
+
+// restaurant.pizza(...ingredients);
+
+// const newRestaurant = { ...restaurant };
+// console.log(newRestaurant);
+
+// const [a, b, ...re] = ingredients;
+// console.log(a, b, re);
+
+const collect = function (...numbers) {
+  console.log(numbers);
+};
+collect(3, 5, 6, 7, 8, 9); // unknown arguments pass
+
+const x = [3, 5, 6, 7, 8, 9];
+collect(...x); // spread operator
+
+restaurant.numGuests = 0; // edge case
+const guests = restaurant.numGuests || 1;
+console.log(guests); // 1 , 1
+// restaurant.numGuests = false;
+const guestsSolution = restaurant.numGuests ?? 1;
+console.log(guestsSolution); // 0, false
+
+const guests2 = restaurant.numGuests || 10;
+console.log(guests2);
+
+/* 
+Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
+
+The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
+
+THIS TEST DATA (pasted to textarea)
+underscore_case
+ first_name
+Some_Variable 
+  calculate_AGE
+delayed_departure
+
+SHOULD PRODUCE THIS OUTPUT (5 separate console.log outputs)
+underscoreCase      ✅
+firstName           ✅✅
+someVariable        ✅✅✅
+calculateAge        ✅✅✅✅
+delayedDeparture    ✅✅✅✅✅
+
+HINT 1: Remember which character defines a new line in the textarea 😉
+HINT 2: The solution only needs to work for a variable made out of 2 words, like a_b
+HINT 3: Start without worrying about the ✅. Tackle that only after you have the variable name conversion working 😉
+HINT 4: This challenge is difficult on purpose, so start watching the solution in case you're stuck. Then pause and continue!
+
+Afterwards, test with your own test data!
+
+GOOD LUCK 😀
+*/
