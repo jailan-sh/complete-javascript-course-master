@@ -270,6 +270,6 @@ for (const [k, v] of Object.entries(game.odds)) {
 //bonus  proparty : game.scored
 const scorers = {};
 for (const goal of game.scored) {
-  scorers[goal] ? scorers[goal]++ : (scorers[goal] = 1);
+  scorers[goal] ? (scorers[goal] += 1) : (scorers[goal] = 1);
 }
 console.log(scorers);
