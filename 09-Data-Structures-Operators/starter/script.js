@@ -4,6 +4,21 @@
 const flights =
   '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
 
+const convert = str => str.slice(0, 3).toUpperCase();
+const parts = flights.split('+');
+for (const part of parts) {
+  const [department, foa, tax, hour] = part.split(';');
+  console.log(
+    `${department.startsWith('_Delayed') ? '⛔' : ''}${department.replaceAll(
+      '_',
+      ' '
+    )} from ${convert(foa)} to ${convert(tax)} (${hour.replace(
+      ':',
+      'h'
+    )})`.padStart(50)
+  );
+}
+
 // Data needed for first part of the section
 const restaurant = {
   name: 'Classico Italiano',
@@ -208,71 +223,71 @@ BONUS: Create an object called 'scorers' which contains the names of the players
 
 GOOD LUCK 😀
 */
-const game = {
-  team1: 'Bayern Munich',
-  team2: 'Borrussia Dortmund',
-  players: [
-    [
-      'Neuer',
-      'Pavard',
-      'Martinez',
-      'Alaba',
-      'Davies',
-      'Kimmich',
-      'Goretzka',
-      'Coman',
-      'Muller',
-      'Gnarby',
-      'Lewandowski',
-    ],
-    [
-      'Burki',
-      'Schulz',
-      'Hummels',
-      'Akanji',
-      'Hakimi',
-      'Weigl',
-      'Witsel',
-      'Hazard',
-      'Brandt',
-      'Sancho',
-      'Gotze',
-    ],
-  ],
-  score: '4:0',
-  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
-  date: 'Nov 9th, 2037',
-  odds: {
-    team1: 1.33,
-    x: 3.25,
-    team2: 6.5,
-  },
-};
-//1
-for (const [i, player] of game.scored.entries()) {
-  console.log(`Goal ${i + 1}: ${player}`);
-}
+// const game = {
+//   team1: 'Bayern Munich',
+//   team2: 'Borrussia Dortmund',
+//   players: [
+//     [
+//       'Neuer',
+//       'Pavard',
+//       'Martinez',
+//       'Alaba',
+//       'Davies',
+//       'Kimmich',
+//       'Goretzka',
+//       'Coman',
+//       'Muller',
+//       'Gnarby',
+//       'Lewandowski',
+//     ],
+//     [
+//       'Burki',
+//       'Schulz',
+//       'Hummels',
+//       'Akanji',
+//       'Hakimi',
+//       'Weigl',
+//       'Witsel',
+//       'Hazard',
+//       'Brandt',
+//       'Sancho',
+//       'Gotze',
+//     ],
+//   ],
+//   score: '4:0',
+//   scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+//   date: 'Nov 9th, 2037',
+//   odds: {
+//     team1: 1.33,
+//     x: 3.25,
+//     team2: 6.5,
+//   },
+// };
+// //1
+// for (const [i, player] of game.scored.entries()) {
+//   console.log(`Goal ${i + 1}: ${player}`);
+// }
 
-//2
-const result = Object.values(game.odds);
-let ave = 0;
-for (const item of result) {
-  ave += item;
-}
-console.log(ave / result.length);
+// //2
+// const result = Object.values(game.odds);
+// let ave = 0;
+// for (const item of result) {
+//   ave += item;
+// }
+// console.log(ave / result.length);
 
-//3
-for (const [k, v] of Object.entries(game.odds)) {
-  const team = k === 'x' ? 'draw' : `victory ${game[k]}`;
-  console.log(`odd of ${team} ${v}`);
-  //console.log(`Odd of ${game[k] ?? 'draw'} : ${v}`);
-}
-//bonus  proparty : game.scored
-const scorers = {};
-for (const goal of game.scored) {
-  scorers[goal] ? (scorers[goal] += 1) : (scorers[goal] = 1);
-}
-console.log(scorers);
+// //3
+// for (const [k, v] of Object.entries(game.odds)) {
+//   const team = k === 'x' ? 'draw' : `victory ${game[k]}`;
+//   console.log(`odd of ${team} ${v}`);
+//   //console.log(`Odd of ${game[k] ?? 'draw'} : ${v}`);
+// }
+// //bonus  proparty : game.scored
+// const scorers = {};
+// for (const goal of game.scored) {
+//   scorers[goal] ? (scorers[goal] += 1) : (scorers[goal] = 1);
+// }
+// console.log(scorers);
 
 // const ory = new Set(['lala', 'jil', 'amanda']);
 // console.log([...ory]);
@@ -337,24 +352,78 @@ const gameEvents = new Map([
 ]);
 
 //1
-const events = [...new Set(gameEvents.values())];
-// const setEvents = new Set();
+// const events = [...new Set(gameEvents.values())];
+// // const setEvents = new Set();
+// // for (const [k, v] of gameEvents) {
+// //   setEvents.add(v);
+// // }
+// // const events = [...setEvents];
+// console.log(events);
+
+// //2
+// gameEvents.delete(64);
+// console.log(gameEvents);
+
+// //3
+// const time = [...gameEvents.keys()].pop();
+// console.log(
+//   `An event happened, on average, every ${time / gameEvents.size} minutes`
+// );
+// //4
 // for (const [k, v] of gameEvents) {
-//   setEvents.add(v);
+//   console.log(k < 45 ? `[FIRST HALF] ${k}: ${v}` : `[SECOND HALF] ${k}: ${v}`);
 // }
-// const events = [...setEvents];
-console.log(events);
 
-//2
-gameEvents.delete(64);
-console.log(gameEvents);
+// const str = 'jailan';
+// let restr = str[0].toUpperCase() + str.slice(1).toLocaleLowerCase();
+// console.log(restr);
 
-//3
-const time = [...gameEvents.keys()].pop();
-console.log(
-  `An event happened, on average, every ${time / gameEvents.size} minutes`
-);
-//4
-for (const [k, v] of gameEvents) {
-  console.log(k < 45 ? `[FIRST HALF] ${k}: ${v}` : `[SECOND HALF] ${k}: ${v}`);
-}
+// const announcement =
+//   'All passengers come to boarding door 23. Boarding door 23!';
+// console.log(announcement.replaceAll('door', 'gate'));
+
+///////////////////////////////////////
+// Coding Challenge #4
+
+/* 
+Write a program that receives a list of variable names written in underscore_case and convert them to camelCase.
+
+The input will come from a textarea inserted into the DOM (see code below), and conversion will happen when the button is pressed.
+
+THIS TEST DATA (pasted to textarea)
+underscore_case
+ first_name
+Some_Variable 
+  calculate_AGE
+delayed_departure
+
+SHOULD PRODUCE THIS OUTPUT (5 separate console.log outputs)
+underscoreCase      ✅
+firstName           ✅✅
+someVariable        ✅✅✅
+calculateAge        ✅✅✅✅
+delayedDeparture    ✅✅✅✅✅
+
+HINT 1: Remember which character defines a new line in the textarea 😉
+HINT 2: The solution only needs to work for a variable made out of 2 words, like a_b
+HINT 3: Start without worrying about the ✅. Tackle that only after you have the variable name conversion working 😉
+HINT 4: This challenge is difficult on purpose, so start watching the solution in case you're stuck. Then pause and continue!
+
+Afterwards, test with your own test data!
+
+GOOD LUCK 😀
+*/
+document.body.append(document.createElement('textarea'));
+document.body.append(document.createElement('button'));
+document.querySelector('button').addEventListener('click', function () {
+  const data = document.querySelector('textarea').value;
+  const lines = data.split('\n');
+  //console.log(lines);
+  let count = 1;
+  for (const item of lines) {
+    const [first, second] = item.toLocaleLowerCase().trim().split('_');
+    const camelCase = `${first}${second[0].toUpperCase() + second.slice(1)}`;
+    console.log(camelCase.padEnd(20, ' ') + '✅'.repeat(count));
+    count++;
+  }
+});
