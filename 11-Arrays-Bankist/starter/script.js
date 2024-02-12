@@ -24,8 +24,12 @@ GOOD LUCK 😀
 const julia = [3, 5, 2, 12, 7];
 const kate = [4, 1, 15, 8, 3];
 const checkDogs = function (julia, kate) {
-  const dogs = julia.splice(1, julia.length - 3);
-  //console.log(dogs);
+  //const cop = julia.splice(1, julia.length - 3);
+  //const dogs = julia.slice(1, -2);
+  const dogs = julia.slice();
+  dogs.splice(0, 1);
+  dogs.splice(-2, 2);
+  console.log(dogs, julia);
   const total = [...dogs, ...kate];
   total.forEach((dog, index) => {
     const kind = dog >= 3 ? 'an adult' : 'still a puppy 🐶';
