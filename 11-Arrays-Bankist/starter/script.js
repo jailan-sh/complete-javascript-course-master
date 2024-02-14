@@ -57,20 +57,41 @@ TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 
 GOOD LUCK 😀
 */
+// const DATA1 = [5, 2, 4, 1, 15, 8, 3];
+// const DATA2 = [16, 6, 10, 5, 6, 1, 4];
+
+// const calcAverageHumanAge = function (arr1, arr2) {
+//   const dogs = arr1.concat(arr2);
+//   console.log(dogs);
+//   const humanAge = dogs.map(age => (age <= 2 ? age * 2 : 16 + age * 4));
+//   console.log(humanAge);
+//   const adult = humanAge.filter(item => item > 18);
+//   console.log(adult);
+//   const average = adult.reduce((acc, age, i, arr) => acc + age / arr.length, 0); // arr in reduce 😀
+//   return average;
+// };
+// const av = calcAverageHumanAge(DATA1, DATA2);
+// console.log(av);
+
+///////////////////////////////////////
+// Coding Challenge #3
+
+/* 
+Rewrite the 'calcAverageHumanAge' function from the previous challenge, but this time as an arrow function, and using chaining!
+
+TEST DATA 1: [5, 2, 4, 1, 15, 8, 3]
+TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
+
+GOOD LUCK 😀
+*/
 const DATA1 = [5, 2, 4, 1, 15, 8, 3];
 const DATA2 = [16, 6, 10, 5, 6, 1, 4];
-
-const calcAverageHumanAge = function (arr1, arr2) {
-  const dogs = arr1.concat(arr2);
-  console.log(dogs);
-  const humanAge = dogs.map(age => (age <= 2 ? age * 2 : 16 + age * 4));
-  console.log(humanAge);
-  const adult = humanAge.filter(item => item > 18);
-  console.log(adult);
-  const average = adult.reduce((acc, age) => acc + age, 0) / adult.length;
-  return average;
-};
-const av = calcAverageHumanAge(DATA1, DATA2);
+const calcAverageHumanAge = ages =>
+  ages
+    .map(age => (age <= 2 ? age * 2 : 16 + age * 4))
+    .filter(item => item > 18)
+    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+const av = calcAverageHumanAge(DATA1);
 console.log(av);
 
 /////////////////////////////////////////////////
@@ -132,6 +153,7 @@ const inputTransferAmount = document.querySelector('.form__input--amount');
 const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
+
 // insertAdjacentHTML , for each
 const displayMovements = function (movements) {
   containerMovements.innerHTML = ''; // outside
@@ -150,7 +172,45 @@ const displayMovements = function (movements) {
 
 displayMovements(account1.movements);
 
-/////////////////////////////////////////////////
+const createUserName = function (accs) {
+  accs.forEach(acount => {
+    acount.userName = acount.owner
+      .toLocaleLowerCase()
+      .split(' ')
+      .map(item => item[0])
+      .join('');
+  });
+};
+
+createUserName(accounts);
+
+const calcPrintBalance = function (accs) {
+  accs.forEach(acount => {
+    acount.balance = acount.movements.reduce((acc, item) => acc + item, 0);
+  });
+};
+calcPrintBalance(accounts);
+
+const calcDisplaySummary = function (movements) {
+  const income = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${income}💲`;
+  const outGoingMoney = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + Math.abs(mov), 0);
+  labelSumOut.textContent = `${outGoingMoney}€`;
+
+  const inerest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter(int => int >= 1)
+    .reduce((acc, inter) => acc + inter, 0);
+  labelSumInterest.textContent = `${inerest}€`;
+};
+calcDisplaySummary(account1.movements);
+
+////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
 
@@ -166,30 +226,34 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 // const movesusd = movements.map(move => move * 1.1);
 // console.log(movesusd);
 
-const createUserName = function (accs) {
-  accs.forEach(acount => {
-    acount.userName = acount.owner
-      .toLocaleLowerCase()
-      .split(' ')
-      .map(item => item[0])
-      .join('');
-  });
-};
-// console.log(createUserName(accounts)); // not return anything to make username 🤔
-createUserName(accounts);
+// const createUserName = function (accs) {
+//   accs.forEach(acount => {
+//     acount.userName = acount.owner
+//       .toLocaleLowerCase()
+//       .split(' ')
+//       .map(item => item[0])
+//       .join('');
+//   });
+// };
+// // console.log(createUserName(accounts)); // not return anything to make username 🤔
+// createUserName(accounts);
 // console.log(accounts);
 // const withdrawals = movements.filter(mov => mov < 0);
 // console.log(withdrawals);
-const calcPrintBalance = function (accs) {
-  accs.forEach(acount => {
-    acount.balance = acount.movements.reduce((acc, item) => acc + item, 0);
-  });
-};
-calcPrintBalance(accounts);
+
 // console.log(accounts);
 
-const max = movements.reduce((acc, mov) => {
-  if (acc > mov) return acc;
-  else return mov;
-}, movements[0]);
-// console.log(max);
+// const max = movements.reduce((acc, mov) => {
+//   if (acc > mov) return acc;
+//   else return mov;
+// }, movements[0]);
+// // console.log(max);
+
+// const totalUSD = movements
+//   .filter(mov => mov > 0)
+//   .map((mov, i, arr) => {
+//     console.log(arr);
+//     return mov * 1.1;
+//   })
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(totalUSD);
