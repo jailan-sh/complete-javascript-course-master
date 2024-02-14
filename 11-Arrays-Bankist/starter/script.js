@@ -21,23 +21,23 @@ TEST DATA 2: Julia's data [9, 16, 6, 8, 3], Kate's data [10, 5, 6, 1, 4]
 
 GOOD LUCK 😀
 */
-const julia = [3, 5, 2, 12, 7];
-const kate = [4, 1, 15, 8, 3];
-const checkDogs = function (julia, kate) {
-  //const cop = julia.splice(1, julia.length - 3);
-  //const dogs = julia.slice(1, -2);
-  const dogs = julia.slice();
-  dogs.splice(0, 1);
-  dogs.splice(-2, 2);
-  console.log(dogs, julia);
-  const total = [...dogs, ...kate];
-  total.forEach((dog, index) => {
-    const kind = dog >= 3 ? 'an adult' : 'still a puppy 🐶';
-    console.log(`Dog number${index + 1} is ${kind}, and is ${dog} years old `);
-  });
-};
+// const julia = [3, 5, 2, 12, 7];
+// const kate = [4, 1, 15, 8, 3];
+// const checkDogs = function (julia, kate) {
+//   //const cop = julia.splice(1, julia.length - 3);
+//   //const dogs = julia.slice(1, -2);
+//   const dogs = julia.slice();
+//   dogs.splice(0, 1);
+//   dogs.splice(-2, 2);
+//   console.log(dogs, julia);
+//   const total = [...dogs, ...kate];
+//   total.forEach((dog, index) => {
+//     const kind = dog >= 3 ? 'an adult' : 'still a puppy 🐶';
+//     console.log(`Dog number${index + 1} is ${kind}, and is ${dog} years old `);
+//   });
+// };
 
-checkDogs(julia, kate);
+// checkDogs(julia, kate);
 
 /////////////////////////////////////////////////
 // BANKIST APP
@@ -129,3 +129,27 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+// const movesusd = movements.map(move => move * 1.1);
+// console.log(movesusd);
+
+const createUserName = function (accs) {
+  accs.forEach(acount => {
+    acount.userName = acount.owner
+      .toLocaleLowerCase()
+      .split(' ')
+      .map(item => item[0])
+      .join('');
+  });
+};
+// console.log(createUserName(accounts)); // not return anything to make username 🤔
+createUserName(accounts);
+// console.log(accounts);
+// const withdrawals = movements.filter(mov => mov < 0);
+// console.log(withdrawals);
+const calcPrintBalance = function (accs) {
+  accs.forEach(acount => {
+    acount.balance = acount.movements.reduce((acc, item) => acc + item, 0);
+  });
+};
+calcPrintBalance(accounts);
+// console.log(accounts);
