@@ -84,15 +84,15 @@ TEST DATA 2: [16, 6, 10, 5, 6, 1, 4]
 
 GOOD LUCK 😀
 */
-const DATA1 = [5, 2, 4, 1, 15, 8, 3];
-const DATA2 = [16, 6, 10, 5, 6, 1, 4];
-const calcAverageHumanAge = ages =>
-  ages
-    .map(age => (age <= 2 ? age * 2 : 16 + age * 4))
-    .filter(item => item > 18)
-    .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
-const av = calcAverageHumanAge(DATA1);
-console.log(av);
+// const DATA1 = [5, 2, 4, 1, 15, 8, 3];
+// const DATA2 = [16, 6, 10, 5, 6, 1, 4];
+// const calcAverageHumanAge = ages =>
+//   ages
+//     .map(age => (age <= 2 ? age * 2 : 16 + age * 4))
+//     .filter(item => item > 18)
+//     .reduce((acc, age, i, arr) => acc + age / arr.length, 0);
+// const av = calcAverageHumanAge(DATA1);
+// console.log(av);
 
 /////////////////////////////////////////////////
 // BANKIST APP
@@ -170,8 +170,6 @@ const displayMovements = function (movements) {
   });
 };
 
-displayMovements(account1.movements);
-
 const createUserName = function (accs) {
   accs.forEach(acount => {
     acount.userName = acount.owner
@@ -184,31 +182,58 @@ const createUserName = function (accs) {
 
 createUserName(accounts);
 
-const calcPrintBalance = function (accs) {
-  accs.forEach(acount => {
-    acount.balance = acount.movements.reduce((acc, item) => acc + item, 0);
-  });
+const calcPrintBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, item) => acc + item, 0);
+  labelBalance.textContent = `${acc.balance}€`;
 };
-calcPrintBalance(accounts);
 
-const calcDisplaySummary = function (movements) {
-  const income = movements
+const calcDisplaySummary = function (account) {
+  const income = account.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
   labelSumIn.textContent = `${income}💲`;
-  const outGoingMoney = movements
+  const outGoingMoney = account.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => acc + Math.abs(mov), 0);
   labelSumOut.textContent = `${outGoingMoney}€`;
 
-  const inerest = movements
+  const inerest = account.movements
     .filter(mov => mov > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * account.interestRate) / 100)
     .filter(int => int >= 1)
     .reduce((acc, inter) => acc + inter, 0);
   labelSumInterest.textContent = `${inerest}€`;
 };
-calcDisplaySummary(account1.movements);
+
+//log in
+
+let currentAccount;
+btnLogin.addEventListener('click', function (event) {
+  event.preventDefault();
+  currentAccount = accounts.find(
+    acc => acc.userName === inputLoginUsername.value
+  );
+  // console.log(currentAccount);
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display welcame message
+    labelWelcome.textContent = `welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    //clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+
+    // display movements
+    displayMovements(currentAccount.movements);
+
+    //display summery
+    calcDisplaySummary(currentAccount);
+    //display balance
+    calcPrintBalance(currentAccount);
+  }
+});
 
 ////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -257,3 +282,10 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   })
 //   .reduce((acc, mov) => acc + mov, 0);
 // console.log(totalUSD);
+
+// const acount = function (accounts) {
+//   for (const acc of accounts) {
+//     if (acc.owner === 'Jessica Davis') return acc;
+//   }
+// };
+// console.log(acount(accounts));
