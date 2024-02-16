@@ -94,6 +94,88 @@ GOOD LUCK 😀
 // const av = calcAverageHumanAge(DATA1);
 // console.log(av);
 
+///////////////////////////////////////
+// Coding Challenge #4
+
+/* 
+Julia and Kate are still studying dogs, and this time they are studying if dogs are eating too much or too little.
+Eating too much means the dog's current food portion is larger than the recommended portion, and eating too little is the opposite.
+Eating an okay amount means the dog's current food portion is within a range 10% above and 10% below the recommended portion (see hint).
+
+1. Loop over the array containing dog objects, and for each dog, calculate the recommended food portion and add it to the object as a new property. Do NOT create a new array, simply loop over the array. Forumla: recommendedFood = weight ** 0.75 * 28. (The result is in grams of food, and the weight needs to be in kg)
+2. Find Sarah's dog and log to the console whether it's eating too much or too little. HINT: Some dogs have multiple owners, so you first need to find Sarah in the owners array, and so this one is a bit tricky (on purpose) 🤓
+3. Create an array containing all owners of dogs who eat too much ('ownersEatTooMuch') and an array with all owners of dogs who eat too little ('ownersEatTooLittle').
+4. Log a string to the console for each array created in 3., like this: "Matilda and Alice and Bob's dogs eat too much!" and "Sarah and John and Michael's dogs eat too little!"
+5. Log to the console whether there is any dog eating EXACTLY the amount of food that is recommended (just true or false)
+6. Log to the console whether there is any dog eating an OKAY amount of food (just true or false)
+7. Create an array containing the dogs that are eating an OKAY amount of food (try to reuse the condition used in 6.)
+8. Create a shallow copy of the dogs array and sort it by recommended food portion in an ascending order (keep in mind that the portions are inside the array's objects)
+
+HINT 1: Use many different tools to solve these challenges, you can use the summary lecture to choose between them 😉
+HINT 2: Being within a range 10% above and below the recommended portion means: current > (recommended * 0.90) && current < (recommended * 1.10). Basically, the current portion should be between 90% and 110% of the recommended portion.
+
+TEST DATA:
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] }
+];
+
+GOOD LUCK 😀
+*/
+const dogs = [
+  { weight: 22, curFood: 250, owners: ['Alice', 'Bob'] },
+  { weight: 8, curFood: 200, owners: ['Matilda'] },
+  { weight: 13, curFood: 275, owners: ['Sarah', 'John'] },
+  { weight: 32, curFood: 340, owners: ['Michael'] },
+];
+
+// 1-
+dogs.forEach(dog => (dog.recFood = Math.trunc(dog.weight ** 0.75 * 28)));
+
+//2
+const SaraDog = dogs.find(dog => dog.owners.includes('Sarah'));
+//return target;
+console.log(
+  `Sara's dog is eating too ${
+    SaraDog.curFood > SaraDog.recFood ? 'much' : 'little'
+  }`
+);
+
+// 3
+const ownersEatTooLittle = [];
+const ownersEatTooMuch = [];
+dogs.forEach(dog =>
+  dog.curFood > dog.recFood
+    ? ownersEatTooMuch.push(...dog.owners)
+    : ownersEatTooLittle.push(...dog.owners)
+);
+console.log(ownersEatTooLittle, ownersEatTooMuch);
+
+//4
+console.log(
+  `${ownersEatTooMuch.join(
+    ' and '
+  )}'s dogs eat too much! and ${ownersEatTooLittle.join(
+    ' and '
+  )}'s dogs eat too little!`
+);
+
+//5
+console.log(dogs.some(dog => dog.curFood === dog.recFood));
+//6
+console.log(dogs.some(check));
+const check = dog =>
+  dog.curFood > dog.recFood * 0.9 && dog.curFood < dog.recFood * 1.1;
+// 7
+const okeyAmount = dogs.filter(check);
+console.log(okeyAmount);
+
+//8
+const sortDogs = dogs.slice().sort((a, b) => a.recFood - b.recFood);
+console.log(sortDogs);
+
 /////////////////////////////////////////////////
 // BANKIST APP
 
@@ -154,10 +236,23 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+// update
+const upDateUI = function (acc) {
+  // display movements
+  displayMovements(acc.movements);
+
+  //display summery
+  calcDisplaySummary(acc);
+  //display balance
+  calcPrintBalance(acc);
+};
+
 // insertAdjacentHTML , for each
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = ''; // outside
-  movements.forEach((move, index) => {
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach((move, index) => {
     const type = move > 0 ? 'deposit' : 'withdrawal';
     const html = `
     <div class="movements__row">
@@ -224,17 +319,72 @@ btnLogin.addEventListener('click', function (event) {
     //clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
-
-    // display movements
-    displayMovements(currentAccount.movements);
-
-    //display summery
-    calcDisplaySummary(currentAccount);
-    //display balance
-    calcPrintBalance(currentAccount);
   }
+  upDateUI(currentAccount);
 });
 
+btnTransfer.addEventListener('click', function (event) {
+  event.preventDefault();
+  const amount = Number(inputTransferAmount.value);
+  const reciveraccount = accounts.find(
+    acc => acc.userName === inputTransferTo.value
+  );
+  inputTransferAmount.value = inputTransferTo.value = '';
+
+  if (
+    amount > 0 &&
+    currentAccount.balance >= amount &&
+    reciveraccount?.userName !== currentAccount.userName
+  ) {
+    currentAccount.movements.push(-amount);
+    reciveraccount.movements.push(amount);
+  }
+  upDateUI(currentAccount);
+});
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (
+    inputCloseUsername.value === currentAccount.userName &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.userName === currentAccount.userName
+    );
+    accounts.splice(index, 1);
+    containerApp.style.opacity = 0;
+  }
+  inputCloseUsername.value = inputClosePin.value = '';
+});
+
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+  const amount = Number(inputLoanAmount.value);
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    currentAccount.movements.push(amount);
+    upDateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+});
+let state = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !state);
+  state = !state;
+});
+//////////////////////////////////
+/////////////////////////////////
+// all movments
+// const allMovements = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(allMovements);
+
+// const allmov = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(allmov);
 ////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -289,3 +439,47 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 //   }
 // };
 // console.log(acount(accounts));
+
+// const bankdeposit = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov > 0)
+//   .reduce((acc, dep) => acc + dep, 0);
+// console.log(bankdeposit);
+
+// const deposit1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(mov => mov >= 1000).length;
+// console.log(deposit1000);
+// const deposit1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((count, curr) => (curr >= 1000 ? ++count : count), 0);
+// console.log(deposit1000);
+
+// const { deposite, withdrawal } = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce(
+//     (sum, curr) => {
+//       //curr > 0 ? (sum.deposite += curr) : (sum.withdrawal += curr);
+//       sum[curr > 0 ? 'deposite' : 'withdrawal'] += curr;
+//       return sum;
+//     },
+//     { deposite: 0, withdrawal: 0 }
+//   );
+// console.log(deposite, withdrawal);
+
+// 4 title case
+
+// const convertTitleCase = function (title) {
+//   const exceptions = ['but', 'and', 'a', 'an', 'the'];
+//   const captilized = str => str[0].toUpperCase() + str.slice(1);
+//   const result = title
+//     .toLocaleLowerCase()
+//     .split(' ')
+//     .map(word => (exceptions.includes(word) ? word : captilized(word)))
+//     .join(' ');
+//   return captilized(result);
+// };
+
+// console.log(convertTitleCase('this is a nice title'));
+// console.log(convertTitleCase('this is a LONG title but not too long'));
+// console.log(convertTitleCase('and here is another title with an EXAMPLE'));
