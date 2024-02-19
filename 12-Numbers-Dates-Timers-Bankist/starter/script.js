@@ -197,16 +197,38 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
-const startlogoutTimer = function () {};
+const startlogoutTimer = function () {
+  // set time to __
+  let time = 120;
+
+  const tick = function () {
+    const min = String(Math.trunc(time / 60)).padStart(2, 0);
+    const second = String(time % 60).padStart(2, 0);
+    labelTimer.textContent = `${min}:${second}`;
+
+    // stop timer
+    if (time === 0) {
+      clearInterval(timer);
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+    time--;
+  };
+  // delay of execution
+  tick();
+  //call timer every second
+  timer = setInterval(tick, 1000);
+  return timer;
+};
 
 ///////////////////////////////////////
 // Event handlers
-let currentAccount;
+let currentAccount, timer;
 
 //fake login
-currentAccount = account1;
-updateUI(currentAccount);
-containerApp.style.opacity = 100;
+// currentAccount = account1;
+// updateUI(currentAccount);
+// containerApp.style.opacity = 100;
 
 // current date login
 
@@ -261,7 +283,8 @@ btnLogin.addEventListener('click', function (e) {
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
-
+    if (timer) clearInterval(timer);
+    timer = startlogoutTimer();
     // Update UI
     updateUI(currentAccount);
   }
@@ -289,11 +312,16 @@ btnTransfer.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+
+    //reset the timer
+    clearInterval(timer);
+    timer = startlogoutTimer();
   }
 });
 
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
+  //reset the timer
 
   const amount = Number(inputLoanAmount.value);
 
@@ -304,10 +332,13 @@ btnLoan.addEventListener('click', function (e) {
     currentAccount.movementsDates.push(new Date().toISOString());
     // Update UI
     // timeout
+    clearInterval(timer);
+    timer = startlogoutTimer();
     setTimeout(() => {
       updateUI(currentAccount);
     }, 5000); // mine 😁
   }
+
   inputLoanAmount.value = '';
 });
 
