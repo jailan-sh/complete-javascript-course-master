@@ -197,6 +197,8 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+const startlogoutTimer = function () {};
+
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
@@ -226,7 +228,7 @@ btnLogin.addEventListener('click', function (e) {
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
-  console.log(currentAccount);
+  //console.log(currentAccount);
 
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
     // Display UI and message
@@ -253,6 +255,8 @@ btnLogin.addEventListener('click', function (e) {
       currentAccount.locale,
       options
     ).format(now);
+
+    // settimeout
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
@@ -298,9 +302,11 @@ btnLoan.addEventListener('click', function (e) {
     currentAccount.movements.push(amount);
 
     currentAccount.movementsDates.push(new Date().toISOString());
-
     // Update UI
-    updateUI(currentAccount);
+    // timeout
+    setTimeout(() => {
+      updateUI(currentAccount);
+    }, 5000); // mine 😁
   }
   inputLoanAmount.value = '';
 });
@@ -338,3 +344,20 @@ btnSort.addEventListener('click', function (e) {
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
+// const ingers = ['chsse', 'chili'];
+// const timer = setTimeout(
+//   (ing1, ing2) => console.log(`here is ur pizz ${ing1} ${ing2}`),
+//   3000,
+//   ...ingers
+// );
+// console.log(`waiting`);
+// if (ingers.includes('chesse')) clearTimeout(timer);
+//challenge
+
+// setInterval(() => {
+//   const now = new Date();
+//   const day = `${now.getDate()}`.padStart(2, 0);
+//   const h = now.getHours();
+//   const min = now.getMinutes();
+//   console.log(`${day} ${h}:${min}`);
+// }, 1000);
