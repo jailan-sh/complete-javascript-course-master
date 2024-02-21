@@ -2,43 +2,47 @@
 /////////////////////////////////////////
 // practice:
 
-// selectors element:
+// Selecting elements
+// console.log(document.documentElement);
+// console.log(document.head);
+// console.log(document.body);
 
-console.log(document.documentElement);
-console.log(document.head);
-console.log(document.body);
 const header = document.querySelector('.header');
+// const allSections = document.querySelectorAll('.section');
+// console.log(allSections);
 
-const sections = document.querySelectorAll('.section');
-console.log(sections);
+// document.getElementById('section--1');
+// const allButtons = document.getElementsByTagName('button');
+// console.log(allButtons);
 
-const bottuns = document.getElementsByTagName('button');
-console.log(bottuns);
+// console.log(document.getElementsByClassName('btn'));
 
-document.getElementById('section__1');
-console.log(document.getElementsByClassName('btn'));
-
-//creat and insert elements:
-// .insertAdjacentHTML(after befor..., html part)
-
+// Creating and inserting elements
 const message = document.createElement('div');
-message.classList.add('cookie--message');
-//message.textContent = 'we use cookies';
+message.classList.add('cookie-message');
+// message.textContent = 'We use cookied for improved functionality and analytics.';
 message.innerHTML =
-  'we add cookies <button class="btn--close--cookie">got it</button>';
+  'We use cookied for improved functionality and analytics. <button class="btn btn--close-cookie">Got it!</button>';
+
+// header.prepend(message);
 header.append(message);
-//header.prepend(message);
-//header.append(message.cloneNode(true));
-//header.before(message);
-//header.after(message);
+// header.append(message.cloneNode(true));
 
-//delete:
+// header.before(message);
+// header.after(message);
 
+// Delete elements
 document
-  .querySelector('.btn--close--cookie')
+  .querySelector('.btn--close-cookie')
   .addEventListener('click', function () {
-    message.remove();
+    // message.remove();
+    message.parentElement.removeChild(message);
   });
+
+//style
+
+message.style.height =
+  Number.parseFloat(getComputedStyle(message).height, 10) + 40 + 'px';
 
 ///////////////////////////////////////
 // Modal window
@@ -72,3 +76,28 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
+
+btnScrollTo.addEventListener('click', function (e) {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
+
+// mouse enter event
+
+// const h1 = document.querySelector('h1');
+// const alertH = function (e) {
+//   alert('here we are !:)');
+//   h1.removeEventListener('mouseenter', alertH);
+// };
+// h1.addEventListener('mouseenter', alertH);
+
+// properity
+
+// h1.onmouseenter = function (e) {
+//   alert('h !:)');}
+
+const randomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+const ramdomColor = () => `rgb($ )`;
