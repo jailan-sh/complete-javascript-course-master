@@ -2,7 +2,7 @@
 
 ///////////////////////////////////////
 // Modal window
-
+const nav = document.querySelector('.nav');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
@@ -71,6 +71,7 @@ document.querySelector('.nav__links').addEventListener('click', function (e) {
 });
 
 //tab component
+
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainers = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
@@ -91,6 +92,37 @@ tabsContainers.addEventListener('click', function (e) {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+////////fade animations:
+//code refractory:
+const handleHover = function (e) {
+  if (e.target.classList.contains('nav__link')) {
+    const target = e.target;
+    const siblings = target.closest('.nav').querySelectorAll('.nav__link');
+    const logo = target.closest('.nav').querySelector('img');
+    siblings.forEach(el => {
+      if (el !== target) el.style.opacity = this;
+    });
+    logo.style.opacity = this;
+  }
+};
+
+nav.addEventListener('mouseover', handleHover.bind(0.5));
+
+/// addeventlistener   function not value : think of bind as it return function
+
+nav.addEventListener('mouseout', handleHover.bind(1));
+
+/////sticky navigation
+
+// const bar = section1.getBoundingClientRect();
+
+// window.addEventListener('scroll', function () {
+//   if (window.scrollY > bar.top) nav.classList.add('sticky');
+//   else nav.classList.remove('sticky');
+// });
+
+//// intersection observer API:
 
 ////////////////////////////////////////////////////
 // mouse enter event
