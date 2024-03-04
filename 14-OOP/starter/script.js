@@ -154,32 +154,66 @@ DATA CAR 1: 'Ford' going at 120 km/h
 
 GOOD LUCK 😀
 */
-class Car {
-  constructor(make, speed) {
-    this.make = make;
-    this.speed = speed;
-  }
-  accelerator() {
-    this.speed += 10;
-    console.log(`${this.speed} km/h`);
-  }
-  brake() {
-    this.speed -= 5;
-    console.log(`${this.speed} km/h`);
-  }
-  get speedUS() {
-    return this.speed / 1.6;
-  }
-  set speedUS(speed) {
-    this.speed = speed * 1.6;
-  }
-}
+// class Car {
+//   constructor(make, speed) {
+//     this.make = make;
+//     this.speed = speed;
+//   }
+//   accelerator() {
+//     this.speed += 10;
+//     console.log(`${this.speed} km/h`);
+//   }
+//   brake() {
+//     this.speed -= 5;
+//     console.log(`${this.speed} km/h`);
+//   }
+//   get speedUS() {
+//     return this.speed / 1.6;
+//   }
+//   set speedUS(speed) {
+//     this.speed = speed * 1.6;
+//   }
+// }
 
-const car1 = new Car('Ford', 120);
-console.log(car1);
-console.log(car1.speedUS);
-car1.brake();
-car1.accelerator();
+// const car1 = new Car('Ford', 120);
+// console.log(car1);
+// console.log(car1.speedUS);
+// car1.brake();
+// car1.accelerator();
 
-car1.speedUS = 50;
-console.log(car1);
+// car1.speedUS = 50;
+// console.log(car1);
+///////////////////////////////////////////
+
+const Person = function (fullName, birthYear) {
+  this.fullName = fullName;
+  this.birthYear = birthYear;
+};
+// instence method method in prototype any created instance can use it
+Person.prototype.calAge = function () {
+  console.log(2034 - this.birthYear);
+};
+
+const Student = function (fullName, birthYear, course) {
+  Person.call(this, fullName, birthYear);
+  this.course = course;
+};
+
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
+// special prototype for our object after inheritance
+Student.prototype.interduce = function () {
+  console.log(`my name is ${this.fullName} and courses are ${this.course}`);
+};
+
+const mike = new Student('mike', 2000, 'cs');
+console.log(mike);
+mike.calAge();
+mike.interduce();
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+console.log(mike instanceof Student);
+console.log(mike instanceof Person);
+console.log(mike instanceof Object);
+console.dir(Student.prototype.constructor);
