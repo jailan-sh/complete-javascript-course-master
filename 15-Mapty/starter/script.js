@@ -77,7 +77,14 @@ const inputElevation = document.querySelector('.form__input--elevation');
 //   inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
 // });
 
-// archeticture : class app
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// workout archeticture:
+
+//////////////////////////////////////////////////////////////////
+// archeticture :
+
+// class app
 
 class App {
   #map;
@@ -110,6 +117,7 @@ class App {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.#map);
+
     this.#map.on('click', this._showForm.bind(this));
   }
 
