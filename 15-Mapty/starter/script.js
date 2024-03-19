@@ -80,6 +80,41 @@ const inputElevation = document.querySelector('.form__input--elevation');
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // workout archeticture:
+class Workout {
+  date = new Date();
+  id = (Date.now + '').slice(-10);
+  constructor(distance, duration, coords) {
+    this.distance = distance;
+    this.duration = duration;
+    this.coords = coords;
+  }
+}
+// console.log(new Date(), Date.now());
+class Running extends Workout {
+  constructor(distance, duration, coords, cadence) {
+    super(distance, duration, coords);
+    this.cadence = cadence;
+    this.pace();
+  }
+
+  pace() {
+    // min/km
+    this.pace = this.duration / this.distance;
+    return this.pace;
+  }
+}
+
+class Cycling extends Workout {
+  constructor(distance, duration, coords, elevationGain) {
+    super(distance, duration, coords);
+    this.elevationGain = elevationGain;
+    this.speed();
+  }
+  speed() {
+    this.speed = this.distance / this.duration;
+    return this.speed;
+  }
+}
 
 //////////////////////////////////////////////////////////////////
 // archeticture :
