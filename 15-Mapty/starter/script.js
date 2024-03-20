@@ -337,7 +337,7 @@ class App {
     });
     // using puplic interface (clicks):
 
-    workout.click();
+    // workout.click();
   }
 
   _storageWorkout() {
