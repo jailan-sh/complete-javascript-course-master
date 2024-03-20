@@ -80,6 +80,8 @@ const inputElevation = document.querySelector('.form__input--elevation');
 class Workout {
   date = new Date();
   id = (Date.now() + '').slice(-10);
+  clicks = 0;
+
   constructor(distance, duration, coords) {
     this.distance = distance;
     this.duration = duration;
@@ -92,6 +94,10 @@ class Workout {
     this.description = `${this.type[0].toUpperCase()}${this.type.slice(1)} on ${
       months[this.date.getMonth()]
     } ${this.date.getDate()}`;
+  }
+
+  click() {
+    this.clicks++;
   }
 }
 
@@ -134,11 +140,18 @@ class App {
   #map;
   #mapevent;
   workouts = [];
+  mapZoomLevel = 13;
 
   constructor() {
     this._getPosition();
+
+    //eventhendelers
     form.addEventListener('submit', this._newWorkout.bind(this));
     inputType.addEventListener('change', this._toggleElevationField);
+    containerWorkouts.addEventListener('click', this._moveToPopup.bind(this));
+
+    //get data storage
+    this._getlocalstorage();
   }
 
   _getPosition() {
@@ -157,13 +170,17 @@ class App {
     const { latitude, longitude } = position.coords;
     const coords = [latitude, longitude];
 
-    this.#map = L.map('map').setView(coords, 13);
+    this.#map = L.map('map').setView(coords, this.mapZoomLevel);
     L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.#map);
 
     this.#map.on('click', this._showForm.bind(this));
+
+    this.workouts.forEach(work => {
+      this.renderWorkoutMarker(work);
+    });
   }
 
   _showForm(e) {
@@ -233,6 +250,9 @@ class App {
     this.renderWorkoutForm(workout);
     //hide form
     this._hideForm();
+
+    // storage
+    this._storageWorkout();
   }
 
   renderWorkoutMarker(workout) {
@@ -300,6 +320,40 @@ class App {
       </li>
       `;
     form.insertAdjacentHTML('afterend', html);
+  }
+
+  _moveToPopup(e) {
+    const workoutEl = e.target.closest('.workout');
+    if (!workoutEl) return;
+    const workout = this.workouts.find(
+      work => work.id === workoutEl.dataset.id
+    );
+    console.log(workout);
+    this.#map.setView(workout.coords, this.mapZoomLevel, {
+      Animate: true,
+      pan: {
+        duration: 1,
+      },
+    });
+    // using puplic interface (clicks):
+
+    workout.click();
+  }
+
+  _storageWorkout() {
+    localStorage.setItem('workouts', JSON.stringify(this.workouts));
+  }
+  _getlocalstorage() {
+    const data = JSON.parse(localStorage.getItem('workouts'));
+    console.log(data);
+
+    if (!data) return;
+
+    this.workouts = data;
+
+    this.workouts.forEach(work => {
+      this.renderWorkoutForm(work);
+    });
   }
 }
 
