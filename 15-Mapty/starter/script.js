@@ -355,6 +355,10 @@ class App {
       this.renderWorkoutForm(work);
     });
   }
+  deleteStorage() {
+    localStorage.removeItem('workouts');
+    location.reload();
+  }
 }
 
 const app = new App();
