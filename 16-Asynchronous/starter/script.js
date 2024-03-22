@@ -45,6 +45,8 @@ const getCountryAndNeighbour = function (country) {
     // render countery
     const neighbour = data.borders?.[0];
 
+    if (!neighbour) return;
+
     // AJAX2 call to get neighbour:
     const request2 = new XMLHttpRequest();
     request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
