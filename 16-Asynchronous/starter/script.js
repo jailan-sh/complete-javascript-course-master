@@ -37,3 +37,4 @@ const getCountry = function (country) {
 };
 getCountry('portugal');
 getCountry('egypt');
+getCountry('palestine');
