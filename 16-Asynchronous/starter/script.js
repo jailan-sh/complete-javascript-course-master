@@ -32,35 +32,59 @@ const renderCountery = function (data, className = '') {
 ///////////
 // get countery and neighbour
 
-const getCountryAndNeighbour = function (country) {
-  // first AJAX call
+// const getCountryAndNeighbour = function (country) {
+//   // first AJAX call
 
-  const request = new XMLHttpRequest();
-  request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
-  request.send();
-  request.addEventListener('load', function () {
-    const [data] = JSON.parse(this.responseText);
-    console.log(data);
-    renderCountery(data);
-    // render countery
-    const neighbour = data.borders?.[0];
+//   const request = new XMLHttpRequest();
+//   request.open('GET', `https://restcountries.com/v3.1/name/${country}`);
+//   request.send();
+//   request.addEventListener('load', function () {
+//     const [data] = JSON.parse(this.responseText);
+//     console.log(data);
+//     renderCountery(data);
+//     // render countery
+//     const neighbour = data.borders?.[0];
 
-    if (!neighbour) return;
+//     if (!neighbour) return;
 
-    // AJAX2 call to get neighbour:
-    const request2 = new XMLHttpRequest();
-    request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
-    request2.send();
+//     // AJAX2 call to get neighbour:
+//     const request2 = new XMLHttpRequest();
+//     request2.open('GET', `https://restcountries.com/v3.1/alpha/${neighbour}`);
+//     request2.send();
 
-    request2.addEventListener('load', function () {
-      const [data2] = JSON.parse(this.responseText);
-      console.log(data2);
+//     request2.addEventListener('load', function () {
+//       const [data2] = JSON.parse(this.responseText);
+//       console.log(data2);
 
-      // render neighbour
-      renderCountery(data2, 'neighbour');
-    });
-  });
+//       // render neighbour
+//       renderCountery(data2, 'neighbour');
+//     });
+//   });
+// };
+
+// getCountryAndNeighbour('malaysia');
+// getCountryAndNeighbour('swiss');
+
+////////////////////////////////////////////////////////////////////////////////////
+
+// promises:
+
+const getCountry = function (country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(response => response.json())
+    .then(data => {
+      renderCountery(data[0]);
+
+      const neighbour = data[0].borders?.[0];
+
+      if (!neighbour) return;
+
+      // countery 2
+
+      return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+    })
+    .then(response => response.json())
+    .then(data => renderCountery(data[0], 'neighbour'));
 };
 
-getCountryAndNeighbour('malaysia');
-getCountryAndNeighbour('swiss');
+getCountry('portugal');
