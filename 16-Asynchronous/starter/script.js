@@ -27,7 +27,10 @@ const renderCountery = function (data, className = '') {
 </article>`;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
-  countriesContainer.style.opacity = 1;
+};
+
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentText('beforeend', msg);
 };
 ///////////
 // get countery and neighbour
@@ -71,7 +74,10 @@ const renderCountery = function (data, className = '') {
 
 const getCountry = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) throw new Error(`not Found , ${response.status}`);
+      return response.json();
+    })
     .then(data => {
       renderCountery(data[0]);
 
@@ -83,8 +89,17 @@ const getCountry = function (country) {
 
       return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
     })
-    .then(response => response.json())
-    .then(data => renderCountery(data[0], 'neighbour'));
+    .then(response => {
+      response.json();
+    })
+    .then(data => renderCountery(data[0], 'neighbour'))
+    .catch(err => {
+      console.error(`${err}`);
+      renderError(`this ${err.message} try Again`);
+    })
+    .finally(() => (countriesContainer.style.opacity = 1));
 };
 
-getCountry('portugal');
+btn.addEventListener('click', function () {
+  getCountry('pfererewr');
+});
