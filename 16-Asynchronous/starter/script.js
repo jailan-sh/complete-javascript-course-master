@@ -81,28 +81,28 @@ const getJson = function (url) {
   });
 };
 
-const getCountry = function (country) {
-  getJson(`https://restcountries.com/v3.1/name/${country}`)
-    .then(data => {
-      renderCountery(data[0]);
+// const getCountry = function (country) {
+//   getJson(`https://restcountries.com/v3.1/name/${country}`)
+//     .then(data => {
+//       renderCountery(data[0]);
 
-      const neighbour = data[0].borders?.[0];
+//       const neighbour = data[0].borders?.[0];
 
-      if (!neighbour) throw new Error('no neighbour found');
+//       if (!neighbour) throw new Error('no neighbour found');
 
-      // countery 2
+//       // countery 2
 
-      return getJson(`https://restcountries.com/v3.1/alpha/${neighbour}`);
-    })
-    .then(data => renderCountery(data[0], 'neighbour'))
-    .catch(err => {
-      console.error(`${err}`);
-      renderError(`this ${err.message} try Again`);
-    })
-    .finally(() => (countriesContainer.style.opacity = 1));
-};
+//       return getJson(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+//     })
+//     .then(data => renderCountery(data[0], 'neighbour'))
+//     .catch(err => {
+//       console.error(`${err}`);
+//       renderError(`this ${err.message} try Again`);
+//     })
+//     .finally(() => (countriesContainer.style.opacity = 1));
+// };
 
-///////////////////////////////////////
+//////////////////////////////////////////////////////////
 // Coding Challenge #1
 
 /* 
@@ -129,10 +129,88 @@ TEST COORDINATES 2: -33.933, 18.474
 GOOD LUCK 😀
 */
 
-const whereAmI = function (lat, lng) {
-  fetch(
-    `https://geocode.xyz/${lat},${lng}?geoit=json&auth=767648845256532691427x82306`
-  )
+// const whereAmI = function (lat, lng) {
+//   fetch(
+//     `https://geocode.xyz/${lat},${lng}?geoit=json&auth=767648845256532691427x82306`
+//   )
+//     .then(response => {
+//       if (!response.ok)
+//         throw new Error(
+//           `problem with API geocoding ${response.status}, Try again!`
+//         );
+//       return response.json();
+//     })
+//     .then(data => {
+//       //console.log(data);
+//       console.log(`you are in ${data.city}, ${data.country}`);
+//       return getJson(`https://restcountries.com/v3.1/name/${data.country}`);
+//     })
+//     .then(data => {
+//       renderCountery(data[0]);
+//       const neighbour = data[0].borders?.[0];
+
+//       if (!neighbour) throw new Error('no neighbour found');
+
+//       // countery 2
+
+//       return getJson(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+//     })
+//     .then(data => renderCountery(data[0], 'neighbour'))
+//     .catch(error => console.error(`${error.message}`))
+//     .finally(() => (countriesContainer.style.opacity = 1));
+// };
+
+// whereAmI(52.508, 13.381);
+// whereAmI(19.037, 72.873);
+// whereAmI(-33.933, 18.474);
+
+/////////////////////////////////////////////////////////////////
+
+const lottery = new Promise(function (resolve, reject) {
+  console.log('jailan');
+  setTimeout(() => {
+    if (Math.random() > 0.5) {
+      resolve('u win');
+    } else {
+      reject('looooose');
+    }
+  }, 0);
+});
+
+lottery.then(res => console.log(res)).catch(err => console.error(err));
+
+//////////
+
+const wait = function (secs) {
+  return new Promise(resolve => {
+    setTimeout(resolve, secs * 1000);
+  });
+};
+
+wait(2)
+  .then(() => {
+    console.log('wait 2');
+    return wait(1);
+  })
+  .then(() => console.log('wait 1'));
+
+///////////////////////////////////////////////////////////
+
+// promisify geolocation:
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+const whereAmI = function () {
+  getPosition()
+    .then(position => {
+      const { latitude: lat, longitude: lng } = position.coords;
+      return fetch(
+        `https://geocode.xyz/${lat},${lng}?geoit=json&auth=767648845256532691427x82306`
+      );
+    })
     .then(response => {
       if (!response.ok)
         throw new Error(
@@ -147,19 +225,9 @@ const whereAmI = function (lat, lng) {
     })
     .then(data => {
       renderCountery(data[0]);
-      const neighbour = data[0].borders?.[0];
-
-      if (!neighbour) throw new Error('no neighbour found');
-
-      // countery 2
-
-      return getJson(`https://restcountries.com/v3.1/alpha/${neighbour}`);
     })
-    .then(data => renderCountery(data[0], 'neighbour'))
     .catch(error => console.error(`${error.message}`))
     .finally(() => (countriesContainer.style.opacity = 1));
 };
 
-whereAmI(52.508, 13.381);
-whereAmI(19.037, 72.873);
-whereAmI(-33.933, 18.474);
+btn.addEventListener('click', whereAmI);
