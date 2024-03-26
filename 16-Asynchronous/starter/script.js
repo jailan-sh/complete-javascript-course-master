@@ -305,21 +305,34 @@ GOOD LUCK 😀
 //async wait:
 ////////////
 
-const getPosition = function () {
-  return new Promise(function (resolve, reject) {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-};
-const whereAmI = async function () {
-  const position = await getPosition();
-  console.log(position);
-  const { latitude: lat, longitude: lng } = position.coords;
-  const res = await fetch(
-    `https://geocode.xyz/${lat},${lng}?geoit=json&auth= 767648845256532691427x82306`
-  );
-  res.json;
-  console.log(res);
-  renderCountery(data[0]);
-};
+// const getPosition = function () {
+//   return new Promise(function (resolve, reject) {
+//     navigator.geolocation.getCurrentPosition(resolve, reject);
+//   });
+// };
+// const whereAmI = async function () {
+//   try {
+//     const position = await getPosition();
+//     console.log(position);
+//     const { latitude: lat, longitude: lng } = position.coords;
+//     const res = await fetch(
+//       `https://geocode.xyz/${lat},${lng}?geoit=json&auth= 767648845256532691427x82306`
+//     );
+//     res.json;
+//     console.log(res);
+//     renderCountery(data[0]);
+//   } catch (err) {
+//     console.error(`${err.message}`);
+//   }
+// };
 
-whereAmI();
+// (async function () {
+//   try {
+//     const pro = await whereAmI();
+//     console.log(pro);
+//   } catch (err) {
+//     console.error(`${err.message}`);
+//   }
+//   console.log(' 3: finished');
+// })();
+////////////////////////////////////////////////
