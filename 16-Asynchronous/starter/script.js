@@ -27,6 +27,7 @@ const renderCountery = function (data, className = '') {
 </article>`;
 
   countriesContainer.insertAdjacentHTML('beforeend', html);
+  countriesContainer.style.opacity = 1;
 };
 
 // const renderError = function (msg) {
@@ -257,44 +258,68 @@ TEST DATA: Images in the img folder. Test the error handler by passing a wrong i
 GOOD LUCK 😀
 */
 
-const image = document.querySelector('.images');
+// const image = document.querySelector('.images');
 
-const wait = function () {
-  return new Promise(resolve => {
-    setTimeout(resolve, 2000);
-  });
-};
+// const wait = function () {
+//   return new Promise(resolve => {
+//     setTimeout(resolve, 2000);
+//   });
+// };
 
-const createImage = imgPath => {
+// const createImage = imgPath => {
+//   return new Promise(function (resolve, reject) {
+//     const img = document.createElement('img');
+//     img.src = imgPath;
+//     img.addEventListener('load', () => {
+//       image.append(img);
+//       resolve(img);
+//     });
+//     img.addEventListener('error', () => reject(new Error('Image not found')));
+//   });
+// };
+
+// let currentImage;
+
+// createImage('img/img-1.jpg')
+//   .then(img => {
+//     currentImage = img;
+//     console.log('Image 1 loaded');
+//     return wait();
+//   })
+//   .then(() => {
+//     currentImage.style.display = 'none';
+//     return createImage('img/img-2.jpg');
+//   })
+//   .then(img => {
+//     currentImage = img;
+//     console.log('Image 2 loaded');
+//     return wait();
+//   })
+//   .then(() => {
+//     currentImage.style.display = 'none';
+//   })
+//   .catch(err => console.error(`${err.message}`));
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//async wait:
+////////////
+
+const getPosition = function () {
   return new Promise(function (resolve, reject) {
-    const img = document.createElement('img');
-    img.src = imgPath;
-    img.addEventListener('load', () => {
-      image.append(img);
-      resolve(img);
-    });
-    img.addEventListener('error', () => reject(new Error('Image not found')));
+    navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 };
+const whereAmI = async function () {
+  const position = await getPosition();
+  console.log(position);
+  const { latitude: lat, longitude: lng } = position.coords;
+  const res = await fetch(
+    `https://geocode.xyz/${lat},${lng}?geoit=json&auth= 767648845256532691427x82306`
+  );
+  res.json;
+  console.log(res);
+  renderCountery(data[0]);
+};
 
-let currentImage;
-
-createImage('img/img-1.jpg')
-  .then(img => {
-    currentImage = img;
-    console.log('Image 1 loaded');
-    return wait();
-  })
-  .then(() => {
-    currentImage.style.display = 'none';
-    return createImage('img/img-2.jpg');
-  })
-  .then(img => {
-    currentImage = img;
-    console.log('Image 2 loaded');
-    return wait();
-  })
-  .then(() => {
-    currentImage.style.display = 'none';
-  })
-  .catch(err => console.error(`${err.message}`));
+whereAmI();
