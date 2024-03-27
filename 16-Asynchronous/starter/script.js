@@ -399,4 +399,18 @@ const loadNPause = async function () {
   }
 };
 
-loadNPause();
+// loadNPause();
+
+// part2:
+
+const loadAll = async function (path) {
+  try {
+    const imgs = await Promise.all(path.map(ele => createImage(ele)));
+    imgs.forEach(ele => ele.classList.add('parallel'));
+    console.log(imgs);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+loadAll(['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']);
