@@ -1,3 +1,2 @@
-console.log('like');
-import './shoppingCart';
-17-Modern-JS-Modules-Tooling/starter/script.js
+import './shoppingCart.js';
+console.log('importing module');
