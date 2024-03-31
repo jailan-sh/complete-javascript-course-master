@@ -7,7 +7,7 @@
 155C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\@babel\highlight\node_modules\supports-color133562880805717593 1
 145C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\cosmiconfig\dist\ExplorerSync.d.ts133562880878988204 0
 119C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\escalade133562880769126180 1
-102C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\dist133563122977847099 1
+102C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\dist133563156366943073 1
 128C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\boolbase\index.js133562880760703283 0
 119C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\error-ex133562880767507695 1
 165C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\csso\node_modules\css-tree\lib\syntax\node\Selector.js133562881027618131 0
@@ -33,7 +33,7 @@
 137C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\caniuse-lite\dist\unpacker133562881070943229 1
 122C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\ansi-styles133562880776002127 1
 165C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\@parcel\optimizer-htmlnano\node_modules\csso\lib\clean133562880939847279 1
-106C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\clean.js132886595200000000 0
+106C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\clean.js133563125196005643 0
 132C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\htmlnano\package.json133562880928928025 0
 153C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\caniuse-lite\data\features\cryptography.js133562880987114782 0
 150C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\caniuse-lite\data\features\dom-range.js133562881041607833 0
@@ -50,7 +50,7 @@
 142C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\svgo\plugins\plugins-types.d.ts133562880947056572 0
 135C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\abortcontroller-polyfill133562880857003224 1
 134C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\is-extglob\package.json133562880746166546 0
-107C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\script.js133563118253145537 0
+107C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\script.js133563156343161937 0
 137C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\@parcel\compressor-raw\lib133562880775558147 1
 139C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\lodash-es\_createBaseEach.js133562851779867320 0
 110C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules133563121582495788 1
@@ -523,7 +523,7 @@
 146C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\type-fest\source\promise-value.d.ts133562880885871753 0
 166C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\css-select\node_modules\domhandler\lib\esm\package.json133562880817789629 0
 162C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\css-select\node_modules\domutils\lib\feeds.d.ts.map133562880872281244 0
-124C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\dist\index.8cfc62b9.js.map133563122977847099 0
+124C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\dist\index.8cfc62b9.js.map133563156366913145 0
 134C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\domutils\lib\feeds.d.ts133562880859579416 0
 133C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\react-refresh\babel.js133562880765953642 0
 163C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\@parcel\rust\parcel-node-bindings.linux-x64-gnu.node133562881093828348 0
@@ -2266,7 +2266,7 @@
 185C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\@parcel\optimizer-htmlnano\node_modules\svgo\plugins\removeStyleElement.js133562880940454736 0
 138C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\lodash-es\object.default.js133562851822726974 0
 128C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\lodash-es\over.js133562851823665275 0
-113C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\dist\index.html133563122976865945 0
+113C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\dist\index.html133563156366446986 0
 159C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\lmdb\dependencies\lmdb\libraries\liblmdb\LICENSE133562880852147902 0
 132C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\lodash-es\overSome.js133562851824131717 0
 152C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\caniuse-lite\data\features\font-smooth.js133562881046676033 0
@@ -6493,4 +6493,4 @@
 126C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\.bin\semver.ps1133562881144202072 0
 120C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\.bin\svgo133562881144232444 0
 138C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\node_modules\.bin\update-browserslist-db133562881144212041 0
-120C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\dist\index.8cfc62b9.js133563122977691235 0
+120C:\Users\Acadmya\Downloads\complete-javascript-course-master\17-Modern-JS-Modules-Tooling\starter\dist\index.8cfc62b9.js133563156366833368 0
