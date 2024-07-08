@@ -25,5 +25,11 @@ btnCloseModal.addEventListener('click', closeEvent);
 overlay.addEventListener('click', closeEvent);
 
 document.addEventListener('keydown', function (event) {
-  if (event.key === 'Escape') closeEvent();
+  if (event.key === 'Escape' && !overlay.classList.contains('hidden'))
+    closeEvent();
+});
+
+//for mouseonly
+overlay.addEventListener('mousedown', function (event) {
+  if (!overlay.classList.contains('hidden')) closeEvent();
 });
